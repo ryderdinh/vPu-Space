@@ -39,7 +39,7 @@
     -o-border-radius: 0 0 $column-border-radius $column-border-radius;
   }
 
-  .task-list {
+  .card-list {
     list-style-type: none;
     max-height: calc(100% - #{$column-header-height} - #{$column-footer-height});
     overflow-y: auto;
