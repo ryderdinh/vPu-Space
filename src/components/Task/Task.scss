@@ -1,0 +1,27 @@
+@import "_setting.scss";
+
+.task-item {
+  background: #fff;
+  padding: $gap;
+  border-radius: $card-border-radius;
+  -webkit-border-radius: $card-border-radius;
+  -moz-border-radius: $card-border-radius;
+  -ms-border-radius: $card-border-radius;
+  -o-border-radius: $card-border-radius;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+  &:not(:last-child) {
+    margin-bottom: $gap;
+  }
+
+  img {
+    display: block;
+    margin: -$gap 0 $gap (-$gap);
+    width: calc(100% + 2 * #{$gap});
+    border-radius: $card-border-radius $card-border-radius 0 0;
+    -webkit-border-radius: $card-border-radius $card-border-radius 0 0;
+    -moz-border-radius: $card-border-radius $card-border-radius 0 0;
+    -ms-border-radius: $card-border-radius $card-border-radius 0 0;
+    -o-border-radius: $card-border-radius $card-border-radius 0 0;
+  }
+}
