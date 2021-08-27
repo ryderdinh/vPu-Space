@@ -1,6 +1,6 @@
 @import "_setting.scss";
 
-.task-item {
+.card-item {
   background: #fff;
   padding: $gap;
   border-radius: $card-border-radius;
@@ -9,12 +9,18 @@
   -ms-border-radius: $card-border-radius;
   -o-border-radius: $card-border-radius;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:first-child {
+    font-weight: 600;
+    font-size: 17px;
+  }
 
   &:not(:last-child) {
     margin-bottom: $gap;
   }
 
-  img {
+  img.card-cover {
     display: block;
     margin: -$gap 0 $gap (-$gap);
     width: calc(100% + 2 * #{$gap});
