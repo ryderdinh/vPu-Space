@@ -2,8 +2,10 @@
 
 
 .board-contents {
-  display: flex;
+  height: $board-content-height;
+  // display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   margin: 10px;
 
   &::-webkit-scrollbar {
@@ -21,5 +23,29 @@
     }
   }
 
-  
+  .smooth-dnd-container {
+    .smooth-dnd-draggable-wrapper {
+      &:not(:first-child) {
+        .column {
+          margin-left: $gap;
+        }
+      }
+    }
+  }
+
+  .column-drag-handle {
+    cursor: move;
+    padding: 5px;
+  }
+
+  .column-drop-preview {
+    background-color: rgba(201, 201, 245, 0.1);
+    border: 1px dashed rgb(114, 131, 148);
+    margin: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
 }
