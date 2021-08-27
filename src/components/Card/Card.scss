@@ -10,15 +10,9 @@
   -o-border-radius: $card-border-radius;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  margin-bottom: $gap;
+  font-weight: 400;
 
-  &:first-child {
-    font-weight: 600;
-    font-size: 17px;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: $gap;
-  }
 
   img.card-cover {
     display: block;
@@ -30,4 +24,6 @@
     -ms-border-radius: $card-border-radius $card-border-radius 0 0;
     -o-border-radius: $card-border-radius $card-border-radius 0 0;
   }
+
+
 }
