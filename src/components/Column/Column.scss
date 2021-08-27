@@ -1,0 +1,63 @@
+@import "_setting.scss";
+
+.column {
+  flex: 0 0 auto;
+  width: 300px;
+  height: calc(100% - #{$gap});
+
+  +.column {
+    margin-left: $gap;
+  }
+
+  >* {
+    background-color: $list-bg-color;
+    color: #333;
+    padding: 0 8px;
+  }
+
+  header {
+    padding-left: 15px;
+    height: $column-header-height;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: $column-border-radius $column-border-radius 0 0;
+    -webkit-border-radius: $column-border-radius $column-border-radius 0 0;
+    -moz-border-radius: $column-border-radius $column-border-radius 0 0;
+    -ms-border-radius: $column-border-radius $column-border-radius 0 0;
+    -o-border-radius: $column-border-radius $column-border-radius 0 0;
+  }
+
+  footer {
+    padding-left: 10px;
+    height: 36px;
+    line-height: $column-footer-height;
+    border-radius: 0 0 $column-border-radius $column-border-radius;
+    -webkit-border-radius: 0 0 $column-border-radius $column-border-radius;
+    -moz-border-radius: 0 0 $column-border-radius $column-border-radius;
+    -ms-border-radius: 0 0 $column-border-radius $column-border-radius;
+    -o-border-radius: 0 0 $column-border-radius $column-border-radius;
+  }
+
+  .task-list {
+    list-style-type: none;
+    max-height: calc(100% - #{$column-header-height} - #{$column-footer-height});
+    overflow-y: auto;
+    margin: 0;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+
+      &:vertical {
+        width: 11px;
+      }
+
+      &-thumb {
+        background-color: darken($list-bg-color, 15);
+        border-right: 5px solid $list-bg-color;
+      }
+    }
+
+
+  }
+}

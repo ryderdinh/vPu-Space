@@ -1,0 +1,25 @@
+@import "_setting.scss";
+
+
+.board-contents {
+  display: flex;
+  overflow-x: auto;
+  margin: 10px;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+
+    &:horizontal {
+      height: 11px;
+    }
+
+    &-thumb {
+      background-color: $common-elememnt-bg;
+      border-right: 5px solid $list-bg-color;
+      border-left: 5px solid $list-bg-color;
+
+    }
+  }
+
+  
+}
