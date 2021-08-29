@@ -5,12 +5,29 @@ import { mapOrder } from "utilities/sorts";
 import Column from "components/Column/Column";
 import { initialData } from "actions/initialData";
 import { Container, Draggable } from "react-smooth-dnd";
+import { applyDrag } from "utilities/dragDrop";
 
 export default function BoardContent() {
   const [board, setBoard] = useState({});
   const [columns, setColumns] = useState([]);
-  const onColumnDrop = (propResult) => {
-    console.log(propResult);
+  const onColumnDrop = (dropResult) => {
+    let newColumns = [...columns];
+    newColumns = applyDrag(newColumns, dropResult);
+    setColumns(newColumns);
+
+    let newBoard = { ...board };
+    newBoard.columnOrder = newColumns.map((column) => column.id);
+    newBoard.columns = newColumns;
+    setBoard(newBoard);
+  };
+  const onCardDrop = (columnId, itemResult) => {
+    if (itemResult.removedIndex !== null || itemResult.addedIndex !== null) {
+      let newColumns = [...columns];
+      let currentColumn = newColumns.find((c) => c.id === columnId);
+      currentColumn.cards = applyDrag(currentColumn.cards, itemResult);
+      currentColumn.cardOrder = currentColumn.cards.map((card) => card.id);
+      setColumns(newColumns);
+    }
   };
   useEffect(() => {
     const boardFromDb = initialData.boards.find(
@@ -18,13 +35,7 @@ export default function BoardContent() {
     );
     if (boardFromDb) {
       setBoard(boardFromDb);
-      //? Sort column
-      boardFromDb.columns.sort((a, b) => {
-        return (
-          boardFromDb.columnOrder.indexOf(a.id) -
-          boardFromDb.columnOrder.indexOf(b.id)
-        );
-      });
+      // //? Sort column
       setColumns(mapOrder(boardFromDb.columns, boardFromDb.columnOrder, "id"));
     }
   }, []);
@@ -52,11 +63,16 @@ export default function BoardContent() {
               title={column.title}
               cards={column.cards}
               cardOrder={column.cardOrder}
-              columnId={column.columnId}
+              columnId={column.id}
+              onCardDrop={onCardDrop}
             />
           </Draggable>
         ))}
       </Container>
+      <div className="add-new-column">
+        <i className="fa fa-plus icon" />
+        Add new column
+      </div>
     </div>
   );
 }

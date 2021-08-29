@@ -7,6 +7,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   margin: 10px;
+  display: flex;
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -47,5 +48,33 @@
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+  }
+
+  .add-new-column {
+    width: 300px;
+    background-color: hsla(0, 0%, 100%, .14);
+    border: 1px dashed rgb(114, 131, 148);
+    margin-left: $gap;
+    border-radius: $column-border-radius;
+    -webkit-border-radius: $column-border-radius;
+    -moz-border-radius: $column-border-radius;
+    -ms-border-radius: $column-border-radius;
+    -o-border-radius: $column-border-radius;
+    color: #fff;
+    padding: 0 8px;
+    height: 36px;
+    line-height: 36px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+
+    &:hover {
+      background-color: hsla(0, 0%, 100%, .34);
+    }
   }
 }

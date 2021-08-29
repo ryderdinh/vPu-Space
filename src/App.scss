@@ -17,6 +17,11 @@ body {
 .trello-dinhquanganh {
   height: 100vh;
   overflow: hidden;
-  background-color: $board-bg-color;
   background-image: $board-bg-image;
+  color: $app-main-text-color;
+
+  .icon {
+    font-size: 14px;
+    margin-right: 3px;
+  }
 }

@@ -2,7 +2,7 @@ export const initialData = {
   boards: [
     {
       id: "brd-1",
-      columnOrder: ["cln-2", "cln-1"],
+      columnOrder: ["cln-1", "cln-2"],
       columns: [
         {
           id: "cln-1",
