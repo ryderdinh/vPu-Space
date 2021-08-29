@@ -18,8 +18,8 @@
 
     &-thumb {
       background-color: $common-elememnt-bg;
-      border-right: 5px solid $list-bg-color;
-      border-left: 5px solid $list-bg-color;
+      border-right: 5px solid $column-bg-color;
+      border-left: 5px solid $column-bg-color;
 
     }
   }
@@ -52,6 +52,7 @@
 
   .add-new-column {
     width: 300px;
+    max-width: 300px;
     background-color: hsla(0, 0%, 100%, .14);
     border: 1px dashed rgb(114, 131, 148);
     margin-left: $gap;
@@ -75,6 +76,29 @@
 
     &:hover {
       background-color: hsla(0, 0%, 100%, .34);
+    }
+  }
+
+  .enter-new-column {
+    width: 300px;
+    max-width: 300px;
+    background-color: $column-bg-color;
+    line-height: 32px;
+    padding: 10px;
+    margin-left: $gap;
+    border-radius: $column-border-radius;
+
+    input.input-enter-new-column {
+      margin-bottom: 5px;
+    }
+
+    .cancel-new-column {
+      margin-left: $gap;
+
+      i {
+        color: #fff;
+        transition: all .3s linear;
+      }
     }
   }
 }
