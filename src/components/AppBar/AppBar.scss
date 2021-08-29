@@ -1,6 +1,6 @@
 @import "_setting.scss";
 
-$appbar-bg-color: #0080e9;
+$appbar-bg-color: #09203f;
 
 .navbar-app {
   padding-left: $gap;
@@ -9,4 +9,5 @@ $appbar-bg-color: #0080e9;
   background-color: $appbar-bg-color;
   font-size: 1.5rem;
   height: $navbar-app-height;
+  color: #fff;
 }

@@ -1,18 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600");
 // VARIABLE==================================
 $gap:10px;
-$navbar-app-height: 4vh;
-$navbar-board-height: 5vh;
-$board-content-height: 90vh;
+$navbar-app-height: 5vh;
+$navbar-board-height: 6vh;
+$board-content-height: 88vh;
 
 $column-header-height: 36px;
 $column-footer-height: 36px;
 $column-border-radius: 5px;
 $card-border-radius: 4px;
-$board-bg-color:#0093E9;
-$board-bg-image:linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-
+$board-bg-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+// Color======================================
+$app-main-text-color:#333;
 $list-bg-color:#ebecf0;
+
+
+
+
+
 $common-elememnt-bg: rgba(255, 255, 255, .24);
 //============================================
 $screen-lg: 1201px;
