@@ -12,13 +12,13 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
   }
 
   >* {
-    background-color: $list-bg-color;
+    background-color: $column-bg-color;
     padding: 0 8px;
   }
 
   header {
     cursor: pointer;
-    padding-left: 15px;
+    padding: 5px 8px !important;
     height: $column-header-height;
     line-height: 36px;
     font-size: 16px;
@@ -32,8 +32,8 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
 
   footer {
     color: #888;
-    padding-left: 10px;
-    height: 36px;
+    padding: 5px 8px !important;
+    // height: 36px;
     line-height: $column-footer-height;
     border-radius: 0 0 $column-border-radius $column-border-radius;
     -webkit-border-radius: 0 0 $column-border-radius $column-border-radius;
@@ -70,8 +70,8 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
       }
 
       &-thumb {
-        background-color: darken($list-bg-color, 15);
-        border-right: 5px solid $list-bg-color;
+        background-color: darken($column-bg-color, 15);
+        border-right: 5px solid $column-bg-color;
       }
     }
 
