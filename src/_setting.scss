@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600");
+
 // VARIABLE==================================
 $gap:10px;
 $navbar-app-height: 5vh;
@@ -10,13 +11,16 @@ $column-footer-height: 36px;
 $column-border-radius: 5px;
 $card-border-radius: 4px;
 $board-bg-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+
 // Color======================================
 $app-main-text-color:#333;
 $column-bg-color:#ebecf0;
 $alert-danger:#ee5352;
 $input-border-color:#537895;
+
 //============================================
 $common-elememnt-bg: rgba(255, 255, 255, .24);
+
 //============================================
 $screen-lg: 1201px;
 $screen-md:992px;
