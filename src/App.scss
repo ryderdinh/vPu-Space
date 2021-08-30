@@ -47,8 +47,32 @@ body {
 
     [type="button"]:focus {
       box-shadow: none;
+      border: none;
+    }
+
+    .btn:focus,
+    .btn:active {
+      box-shadow: none !important;
+      border: none !important;
     }
   }
 
+  .content-editable {
+    background-color: inherit;
+    border: none;
+    font-size: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    padding: 0;
+    transition: all .3s ease-in-out;
+
+    &:focus {
+      font-weight: 400;
+      cursor: text;
+      background-color: #fff;
+      border: 1px solid $input-border-color;
+      box-shadow: inset 0 -1px 0 #ddd;
+    }
+  }
 
 }

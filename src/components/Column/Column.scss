@@ -20,14 +20,62 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
     cursor: pointer;
     padding: 5px 8px !important;
     height: $column-header-height;
-    line-height: 36px;
+    line-height: 28px;
     font-size: 16px;
     font-weight: 600;
     border-radius: $column-border-radius $column-border-radius 0 0;
-    -webkit-border-radius: $column-border-radius $column-border-radius 0 0;
-    -moz-border-radius: $column-border-radius $column-border-radius 0 0;
-    -ms-border-radius: $column-border-radius $column-border-radius 0 0;
-    -o-border-radius: $column-border-radius $column-border-radius 0 0;
+    display: flex;
+    justify-content: space-between;
+
+    .column-title {
+      flex: 90%;
+    }
+
+    .column-dropdown-actions {
+      flex: 10%;
+
+      .dropdown-btn {
+        padding: 0 $gap;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        background-color: $column-bg-color;
+        color: $app-main-text-color;
+        border: none;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        &:hover {
+          background-color: darken($column-bg-color, 10);
+        }
+
+        &::after {
+          content: "...";
+          border: none;
+        }
+      }
+
+      .dropdown-menu {
+        padding: 0;
+        min-width: 200px;
+
+        a.dropdown-item {
+          padding: .1rem 1rem;
+          font-size: 14px;
+
+          &:first-child {
+            border-top-left-radius: 0.25rem;
+          }
+
+
+          &:last-child {
+            border-bottom-right-radius: 0.25rem;
+          }
+        }
+      }
+    }
   }
 
   footer {
@@ -36,19 +84,12 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
     // height: 36px;
     line-height: $column-footer-height;
     border-radius: 0 0 $column-border-radius $column-border-radius;
-    -webkit-border-radius: 0 0 $column-border-radius $column-border-radius;
-    -moz-border-radius: 0 0 $column-border-radius $column-border-radius;
-    -ms-border-radius: 0 0 $column-border-radius $column-border-radius;
-    -o-border-radius: 0 0 $column-border-radius $column-border-radius;
 
     .footer-actions {
       margin-left: $gap;
       cursor: pointer;
       transition: all .3s linear;
-      -webkit-transition: all .3s linear;
-      -moz-transition: all .3s linear;
-      -ms-transition: all .3s linear;
-      -o-transition: all .3s linear;
+      user-select: none;
 
       &:hover {
         color: $app-main-text-color;
@@ -57,6 +98,7 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
   }
 
   .card-list {
+    padding-top: 5px;
     list-style-type: none;
     max-height: calc(#{$column-height} - #{$column-header-height} - #{$column-footer-height});
     overflow-y: auto;

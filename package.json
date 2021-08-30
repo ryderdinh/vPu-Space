@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^5.1.0",
     "font-awesome": "^4.7.0",
+    "html-react-parser": "^1.2.8",
     "lodash": "^4.17.21",
     "node-sass": "4.14.1",
     "react": "^17.0.2",

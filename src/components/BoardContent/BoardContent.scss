@@ -73,6 +73,7 @@
     -moz-transition: all .3s linear;
     -ms-transition: all .3s linear;
     -o-transition: all .3s linear;
+    user-select: none;
 
     &:hover {
       background-color: hsla(0, 0%, 100%, .34);
@@ -90,6 +91,10 @@
 
     input.input-enter-new-column {
       margin-bottom: 5px;
+
+      &:focus {
+        border-color: $input-border-color;
+      }
     }
 
     .cancel-new-column {

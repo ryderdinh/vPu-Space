@@ -62,6 +62,25 @@ export default function BoardContent() {
     setNewColumnTitle("");
     setOpenNewColumnForm(false);
   };
+  const onUpdateColumn = (newColumnData) => {
+    console.log(newColumnData);
+    let newColumns = [...columns];
+    const columnIndexToUpdate = newColumns.findIndex(
+      (c) => c.id === newColumnData.id
+    );
+    console.log(columnIndexToUpdate);
+    if (newColumnData._destroy) {
+      console.log(true);
+      newColumns.splice(columnIndexToUpdate, 1);
+    } else {
+      newColumns.splice(columnIndexToUpdate, 1, newColumnData);
+    }
+    let newBoard = { ...board };
+    newBoard.columnOrder = newColumns.map((column) => column.id);
+    newBoard.columns = newColumns;
+    setColumns(newColumns);
+    setBoard(newBoard);
+  };
 
   //? Effects
   useEffect(() => {
@@ -105,6 +124,8 @@ export default function BoardContent() {
               cardOrder={column.cardOrder}
               columnId={column.id}
               onCardDrop={onCardDrop}
+              onUpdateColumn={onUpdateColumn}
+              column={column}
             />
           </Draggable>
         ))}
