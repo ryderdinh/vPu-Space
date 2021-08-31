@@ -2,14 +2,28 @@
   "name": "vpuspace",
   "version": "0.0.1",
   "main": "src/server.js",
-  "type": "module",
   "repository": "https://github.com/dinhquanganh/vPu-Space",
   "author": "Đinh Quang Anh",
   "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel ./src -d ./build/src",
+    "build": "npm run clean && npm run build-babel",
+    "prod": "clear && npm run build && node ./build/src/server.js",
+    "dev": "clear && nodemon --exec babel-node ./src/server.js"
+  },
   "dependencies": {
+    "@babel/runtime": "^7.15.3",
     "express": "^4.17.1"
   },
-  "scripts": {
-    "dev": "node src/server.js"
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "nodemon": "^2.0.12"
   }
 }
