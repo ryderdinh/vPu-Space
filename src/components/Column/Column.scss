@@ -148,5 +148,12 @@ $column-height: calc(#{$board-content-height} - #{$gap * 2});
       -o-border-radius: 5px;
     }
 
+    .add-new-card-area {
+      .textarea-enter-new-card {
+        min-height: 54px;
+        max-height: 162px;
+        // margin-bottom: $gap;
+      }
+    }
   }
 }
