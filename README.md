@@ -9,10 +9,10 @@
 <br />
 <p align="center">
   <a href="">
-    <img src="https://images.ctfassets.net/51xdmtqw3t2p/2w0H06U9MYaJNsonXhyD3I/0cd72a4b4e01460bcd7145e984b05c38/Portada_react.jpg?w=1280&q=50" alt="Logo">
+    <img src="https://topdev.vn/blog/wp-content/uploads/2017/10/react2.png" alt="Logo" width="100">
   </a>
 
-  <h3 align="center">vPu-Space</h3>
+  <h3 align="center" style="font-weight: bold">vPu-Space</h3>
 
   <p align="center">
     Manage your space!
@@ -57,7 +57,11 @@
 
 ## About The Project
 
-[![vPu Space][https://raw.githubusercontent.com/othneildrew/best-readme-template/master/images/screenshot.png]](https://vpuspace.com)
+<p align="center">
+  <a href="">
+    <img src="https://images.ctfassets.net/51xdmtqw3t2p/2w0H06U9MYaJNsonXhyD3I/0cd72a4b4e01460bcd7145e984b05c38/Portada_react.jpg?w=1280&q=50" alt="Logo">
+  </a>
+</p>
 
 There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
