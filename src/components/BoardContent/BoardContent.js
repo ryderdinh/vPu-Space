@@ -44,8 +44,12 @@ export default function BoardContent() {
     }
   };
   const addNewColumn = () => {
+    if (!newColumnTitle) {
+      newColumnInputRef.current.focus();
+      return;
+    }
     const newColumnData = {
-      id: Math.random().toString(36).substr(2, 7), //random characters, will remove when we implement code api
+      id: "cln-" + Math.random().toString(36).substr(2, 7), //random characters, will remove when we implement code api
       boardId: board.id,
       title: newColumnTitle.trim(),
       cardOrder: [],
@@ -63,12 +67,10 @@ export default function BoardContent() {
     setOpenNewColumnForm(false);
   };
   const onUpdateColumn = (newColumnData) => {
-    console.log(newColumnData);
     let newColumns = [...columns];
     const columnIndexToUpdate = newColumns.findIndex(
       (c) => c.id === newColumnData.id
     );
-    console.log(columnIndexToUpdate);
     if (newColumnData._destroy) {
       console.log(true);
       newColumns.splice(columnIndexToUpdate, 1);
@@ -80,6 +82,9 @@ export default function BoardContent() {
     newBoard.columns = newColumns;
     setColumns(newColumns);
     setBoard(newBoard);
+  };
+  const onAddNewCardToColumn = (newColumn) => {
+    onUpdateColumn(newColumn);
   };
 
   //? Effects
@@ -96,11 +101,12 @@ export default function BoardContent() {
   useEffect(() => {
     if (newColumnInputRef && newColumnInputRef.current) {
       newColumnInputRef.current.focus();
+      newColumnInputRef.current.select();
     }
   }, [openNewColumnForm]);
 
   if (isEmpty(board)) {
-    return <div className="not-found">Board not found</div>;
+    return <div className="not-found mx-auto">Board not found</div>;
   }
 
   return (
@@ -125,6 +131,7 @@ export default function BoardContent() {
               columnId={column.id}
               onCardDrop={onCardDrop}
               onUpdateColumn={onUpdateColumn}
+              onAddNewCardToColumn={onAddNewCardToColumn}
               column={column}
             />
           </Draggable>
@@ -149,9 +156,9 @@ export default function BoardContent() {
               <Form.Control
                 size="sm"
                 type="text"
-                value={newColumnTitle}
                 placeholder="Enter column title"
                 className="input-enter-new-column"
+                value={newColumnTitle}
                 ref={newColumnInputRef}
                 onChange={(e) => setNewColumnTitle(e.target.value)}
                 onKeyPress={(e) => e.code === "Enter" && addNewColumn()}
@@ -162,7 +169,7 @@ export default function BoardContent() {
               <Button
                 variant="danger"
                 size="sm"
-                className="cancel-new-column"
+                className="cancel-icon"
                 onClick={() => {
                   setOpenNewColumnForm(!openNewColumnForm);
                   setNewColumnTitle("");
