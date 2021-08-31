@@ -122,8 +122,6 @@ export default function Column({
             ></Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item>Add card</Dropdown.Item>
-              <Dropdown.Item>Another action</Dropdown.Item>
               <Dropdown.Item onClick={toggleShowConfirmModal}>
                 Remove
               </Dropdown.Item>
