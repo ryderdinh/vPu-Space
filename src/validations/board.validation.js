@@ -3,7 +3,7 @@ import { HttpStatusCode } from "@/utilities/constants";
 
 const createNew = async (req, res, next) => {
   const condition = Joi.object({
-    title: Joi.string().required().min(4).max(21),
+    title: Joi.string().required().min(4).max(21).trim(),
   });
   try {
     await condition.validateAsync(req.body, { abortEarly: false });
