@@ -1,7 +1,7 @@
 import express from "express";
-import { env } from "./config/environtment";
-import { connectDB, getDB } from "./config/mongodb";
-import { BoardModel } from "@/models/board.model";
+import { env } from "@/config/environtment";
+import { connectDB } from "@/config/mongodb";
+import { apiV1 } from "@/routes/v1/index";
 
 const port = env.APP_PORT;
 const host = `http://localhost:${port}`;
@@ -21,10 +21,11 @@ connectDB()
 const bootServer = () => {
   const app = express();
 
+  //? Enable req.body data
+  app.use(express.json());
+
   //? ROUTER
-  app.get("/api", async (req, res) => {
-    res.json({ message: "hello dinhquanganh" });
-  });
+  app.use("/v1", apiV1);
 
   //? CONNECT TO PORT
   app.listen(port, () => {
