@@ -1,13 +1,34 @@
 import express from "express";
 import { env } from "./config/environtment";
-import { connectDB } from "./config/mongodb";
+import { connectDB, getDB } from "./config/mongodb";
+import { BoardModel } from "@/models/board.model";
 
-const app = express();
-const port = env.PORT || 4700;
-const host = `http://localhost:${port}/api`;
+const port = env.APP_PORT;
+const host = `http://localhost:${port}`;
 
-connectDB();
-app.get("/api", (req, res) => res.send("<h1>dinhquanganh </h1><hr/>"));
-app.listen(port, () => {
-  console.log("@vpuspace is avaliable in \n" + host + "\n");
-});
+//? DATABASE
+connectDB()
+  .then(() => {
+    console.clear();
+    console.log("◽Database ✔️");
+  })
+  .then(() => bootServer())
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+
+const bootServer = () => {
+  const app = express();
+
+  //? ROUTER
+  app.get("/api", async (req, res) => {
+    res.json({ message: "hello dinhquanganh" });
+  });
+
+  //? CONNECT TO PORT
+  app.listen(port, () => {
+    console.log("◽@vpuspace server ✔️");
+    console.log("🔰", host);
+  });
+};
