@@ -3,7 +3,7 @@ import { getDB } from "@/config/mongodb";
 import { ObjectId } from "mongodb";
 
 // Define card collection
-const cardCollectionName = "cards";
+const collectionName = "cards";
 
 const cardCollectionSchema = Joi.object({
   boardId: Joi.string().required(),
@@ -23,10 +23,15 @@ const validateSchema = async (data) => {
 
 const createNew = async (data) => {
   try {
-    const value = await validateSchema(data);
+    const validatedValue = await validateSchema(data);
+    const insertValue = {
+      ...validatedValue,
+      boardId: ObjectId(validatedValue.boardId),
+      columnId: ObjectId(validatedValue.columnId),
+    };
     const result = await getDB()
       .collection(cardCollectionName)
-      .insertOne(value);
+      .insertOne(insertValue);
     return await getDB().collection(cardCollectionName).findOne({
       _id: result.insertedId,
     });
@@ -53,4 +58,4 @@ const update = async (id, data) => {
   }
 };
 
-export const CardModel = { createNew, update };
+export const CardModel = { collectionName, createNew, update };

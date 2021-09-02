@@ -1,9 +1,18 @@
 import { ColumnModel } from "@/models/column.model";
+import { BoardModel } from "../models/board.model";
 
 const createNew = async (data) => {
   try {
-    const result = await ColumnModel.createNew(data);
-    return result;
+    //? Transaction mongodb
+    const newColumnData = await ColumnModel.createNew(data);
+
+    //? Update column order
+    await BoardModel.pushColumnOrder(
+      newColumnData.boardId.toString(),
+      newColumnData._id.toString()
+    );
+
+    return newColumnData;
   } catch (error) {
     throw new Error(error);
   }
