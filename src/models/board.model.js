@@ -1,9 +1,9 @@
 import Joi from "joi";
 import { getDB } from "@/config/mongodb";
-import { Db } from "mongodb";
-// Define board collection
 
+// Define board collection
 const boardCollectionName = "boards";
+
 const boardCollectionSchema = Joi.object({
   title: Joi.string().required().min(4).max(21),
   columnOrder: Joi.array().items(Joi.string()).default([]),
@@ -11,22 +11,26 @@ const boardCollectionSchema = Joi.object({
   updatedAt: Joi.date().timestamp().default(null),
   _destroy: Joi.boolean().default(false),
 });
+
 const validateSchema = async (data) => {
   return await boardCollectionSchema.validateAsync(data, { abortEarly: false });
 };
+
 const createNew = async (data) => {
   try {
     const value = await validateSchema(data);
     const result = await getDB()
       .collection(boardCollectionName)
       .insertOne(value);
+    // deleteItem({});
     return await getDB().collection(boardCollectionName).findOne({
       _id: result.insertedId,
     });
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
+
 const deleteItem = async (data) => {
   try {
     const result = await getDB()
