@@ -4,9 +4,8 @@ import { BoardValidation } from "@/validations/board.validation";
 
 const router = Router();
 
-router
-  .route("/")
-  .get(BoardController.createNew)
-  .post(BoardValidation.createNew, BoardController.createNew);
+router.route("/").post(BoardValidation.createNew, BoardController.createNew);
+
+router.route("/:id").get(BoardController.getFullBoard);
 
 export const BoardRoutes = router;
