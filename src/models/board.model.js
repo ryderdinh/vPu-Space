@@ -22,7 +22,6 @@ const createNew = async (data) => {
     const result = await getDB()
       .collection(boardCollectionName)
       .insertOne(value);
-    // deleteItem({});
     return await getDB().collection(boardCollectionName).findOne({
       _id: result.insertedId,
     });
