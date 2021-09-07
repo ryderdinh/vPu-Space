@@ -17,7 +17,7 @@ export default function Column({
   ...props
 }) {
   //? State
-  const cardsSorted = mapOrder(cards, cardOrder, "id");
+  const cardsSorted = mapOrder(cards, cardOrder, "_id");
   const [showModal, setShowModal] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
   const [openNewCard, setOpenNewCard] = useState(false);
@@ -71,7 +71,7 @@ export default function Column({
       cover: null,
     };
     const newColumn = cloneDeep(props.column);
-    newColumn.cardOrder.push(newCardData.id);
+    newColumn.cardOrder.push(newCardData._id);
     newColumn.cards.push(newCardData);
 
     props.onAddNewCardToColumn(newColumn);
@@ -144,7 +144,7 @@ export default function Column({
           dropPlaceholderAnimationDuration={300}
         >
           {cardsSorted.map((card) => (
-            <Draggable key={card.id}>
+            <Draggable key={card._id}>
               <Card dataCard={card} />
             </Draggable>
           ))}

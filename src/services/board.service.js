@@ -12,14 +12,16 @@ const createNew = async (data) => {
 const getFullBoard = async (boardId) => {
   try {
     const board = await BoardModel.getFullBoard(boardId);
-
+    if (!board || !board.columns) {
+      throw new Error("Board not found");
+    }
     // Add card to each column
     board.columns.forEach((column) => {
       column.cards = board.cards.filter(
         (card) => card.columnId.toString() === column._id.toString()
       );
     });
-    // Sort column by columnOrder, sort cards bt cardOrder 
+    // Sort column by columnOrder, sort cards bt cardOrder
     // Remove cards data from boards
     delete board.cards;
 

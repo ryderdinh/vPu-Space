@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { isEmpty } from "lodash";
 import { mapOrder } from "utilities/sorts";
 import Column from "components/Column/Column";
-import { initialData } from "actions/initialData";
+// import { initialData } from "actions/initialData";
 import { Container, Draggable } from "react-smooth-dnd";
 import { applyDrag } from "utilities/dragDrop";
 import {
@@ -13,6 +13,7 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+import { fetchBoardDetails } from "actions/CallApi";
 
 export default function BoardContent() {
   //? States
@@ -30,16 +31,16 @@ export default function BoardContent() {
     setColumns(newColumns);
 
     let newBoard = { ...board };
-    newBoard.columnOrder = newColumns.map((column) => column.id);
+    newBoard.columnOrder = newColumns.map((column) => column._id);
     newBoard.columns = newColumns;
     setBoard(newBoard);
   };
   const onCardDrop = (columnId, itemResult) => {
     if (itemResult.removedIndex !== null || itemResult.addedIndex !== null) {
       let newColumns = [...columns];
-      let currentColumn = newColumns.find((c) => c.id === columnId);
+      let currentColumn = newColumns.find((c) => c._id === columnId);
       currentColumn.cards = applyDrag(currentColumn.cards, itemResult);
-      currentColumn.cardOrder = currentColumn.cards.map((card) => card.id);
+      currentColumn.cardOrder = currentColumn.cards.map((card) => card._id);
       setColumns(newColumns);
     }
   };
@@ -50,7 +51,7 @@ export default function BoardContent() {
     }
     const newColumnData = {
       id: "cln-" + Math.random().toString(36).substr(2, 7), //random characters, will remove when we implement code api
-      boardId: board.id,
+      boardId: board._id,
       title: newColumnTitle.trim(),
       cardOrder: [],
       cards: [],
@@ -60,7 +61,7 @@ export default function BoardContent() {
     setColumns(newColumns);
 
     let newBoard = { ...board };
-    newBoard.columnOrder = newColumns.map((column) => column.id);
+    newBoard.columnOrder = newColumns.map((column) => column._id);
     newBoard.columns = newColumns;
     setBoard(newBoard);
     setNewColumnTitle("");
@@ -69,7 +70,7 @@ export default function BoardContent() {
   const onUpdateColumn = (newColumnData) => {
     let newColumns = [...columns];
     const columnIndexToUpdate = newColumns.findIndex(
-      (c) => c.id === newColumnData.id
+      (c) => c._id === newColumnData._id
     );
     if (newColumnData._destroy) {
       console.log(true);
@@ -78,7 +79,7 @@ export default function BoardContent() {
       newColumns.splice(columnIndexToUpdate, 1, newColumnData);
     }
     let newBoard = { ...board };
-    newBoard.columnOrder = newColumns.map((column) => column.id);
+    newBoard.columnOrder = newColumns.map((column) => column._id);
     newBoard.columns = newColumns;
     setColumns(newColumns);
     setBoard(newBoard);
@@ -89,14 +90,18 @@ export default function BoardContent() {
 
   //? Effects
   useEffect(() => {
-    const boardFromDb = initialData.boards.find(
-      (board) => board.id === "brd-1"
-    );
-    if (boardFromDb) {
-      setBoard(boardFromDb);
-      // //? Sort column
-      setColumns(mapOrder(boardFromDb.columns, boardFromDb.columnOrder, "id"));
-    }
+    fetchBoardDetails("61313ad6afce7c1470e5aa20").then((boardFromDb) => {
+      console.log(boardFromDb);
+      setBoard(boardFromDb.result);
+      //? Sort column
+      setColumns(
+        mapOrder(
+          boardFromDb.result.columns,
+          boardFromDb.result.columnOrder,
+          "_id"
+        )
+      );
+    });
   }, []);
   useEffect(() => {
     if (newColumnInputRef && newColumnInputRef.current) {
@@ -123,12 +128,12 @@ export default function BoardContent() {
         getChildPayload={(index) => columns[index]}
       >
         {columns.map((column) => (
-          <Draggable key={column.id}>
+          <Draggable key={column._id}>
             <Column
               title={column.title}
               cards={column.cards}
               cardOrder={column.cardOrder}
-              columnId={column.id}
+              columnId={column._id}
               onCardDrop={onCardDrop}
               onUpdateColumn={onUpdateColumn}
               onAddNewCardToColumn={onAddNewCardToColumn}
