@@ -13,7 +13,7 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import { fetchBoardDetails } from "actions/CallApi";
+import { fetchBoardDetails, createNewColumn } from "actions/CallApi";
 
 export default function BoardContent() {
   //? States
@@ -50,24 +50,23 @@ export default function BoardContent() {
       return;
     }
     const newColumnData = {
-      id: "cln-" + Math.random().toString(36).substr(2, 7), //random characters, will remove when we implement code api
       boardId: board._id,
       title: newColumnTitle.trim(),
-      cardOrder: [],
-      cards: [],
     };
-    let newColumns = [...columns];
-    newColumns.push(newColumnData);
-    setColumns(newColumns);
+    createNewColumn(newColumnData).then((column) => {
+      let newColumns = [...columns];
+      newColumns.push(column.result);
+      setColumns(newColumns);
 
-    let newBoard = { ...board };
-    newBoard.columnOrder = newColumns.map((column) => column._id);
-    newBoard.columns = newColumns;
-    setBoard(newBoard);
-    setNewColumnTitle("");
-    setOpenNewColumnForm(false);
+      let newBoard = { ...board };
+      newBoard.columnOrder = newColumns.map((columnData) => columnData._id);
+      newBoard.columns = newColumns;
+      setBoard(newBoard);
+      setNewColumnTitle("");
+      setOpenNewColumnForm(false);
+    });
   };
-  const onUpdateColumn = (newColumnData) => {
+  const onUpdateColumnState = (newColumnData) => {
     let newColumns = [...columns];
     const columnIndexToUpdate = newColumns.findIndex(
       (c) => c._id === newColumnData._id
@@ -85,7 +84,7 @@ export default function BoardContent() {
     setBoard(newBoard);
   };
   const onAddNewCardToColumn = (newColumn) => {
-    onUpdateColumn(newColumn);
+    onUpdateColumnState(newColumn);
   };
 
   //? Effects
@@ -135,7 +134,7 @@ export default function BoardContent() {
               cardOrder={column.cardOrder}
               columnId={column._id}
               onCardDrop={onCardDrop}
-              onUpdateColumn={onUpdateColumn}
+              onUpdateColumnState={onUpdateColumnState}
               onAddNewCardToColumn={onAddNewCardToColumn}
               column={column}
             />

@@ -1,6 +1,6 @@
 {
   "events": {
-    "start": "clear && echo @=============@============@ ",
+    "start": "clear && echo waiting... ",
     "end": "clear "
   }
 }
