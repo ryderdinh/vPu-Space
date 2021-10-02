@@ -1,6 +1,6 @@
 import { env } from './environtment';
 
-const whitelist = [];
+const whitelist = ['https://vpuspace.pages.dev'];
 export const corsOptions =
 	env.SERVER_TYPE === 'DEV'
 		? ''

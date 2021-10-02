@@ -22,8 +22,7 @@ connectDB()
 
 const bootServer = () => {
 	const app = express();
-	// Allow all cors
-	// app.use(cors());
+	// Allow cors
 	app.use(cors(corsOptions));
 	//? Enable req.body data
 	app.use(express.json());
