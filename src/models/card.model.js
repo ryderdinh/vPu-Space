@@ -8,7 +8,7 @@ const collectionName = 'cards';
 const cardCollectionSchema = Joi.object({
 	boardId: Joi.string().required(),
 	columnId: Joi.string().required(),
-	title: Joi.string().required().min(4).max(50).trim(),
+	title: Joi.string().required().min(1).max(50).trim(),
 	cover: Joi.string().default(null),
 	createdAt: Joi.date().timestamp().default(Date.now()),
 	updatedAt: Joi.date().timestamp().default(null),
@@ -32,6 +32,7 @@ const createNew = async data => {
 		const result = await getDB()
 			.collection(collectionName)
 			.insertOne(insertValue);
+
 		return await getDB().collection(collectionName).findOne({
 			_id: result.insertedId
 		});
@@ -41,6 +42,8 @@ const createNew = async data => {
 };
 
 const update = async (id, data) => {
+	if (data.boardId) data.boardId = ObjectId(data.boardId);
+	if (data.columnId) data.columnId = ObjectId(data.columnId);
 	try {
 		const result = await getDB()
 			.collection(collectionName)
@@ -49,6 +52,7 @@ const update = async (id, data) => {
 				{ $set: data },
 				{ returnDocument: 'after' }
 			);
+
 		return result.value;
 	} catch (error) {
 		throw new Error(error);
@@ -63,10 +67,8 @@ const deleteMany = async ids => {
 		const transformIds = ids.map(item => ObjectId(item));
 		const result = await getDB()
 			.collection(collectionName)
-			.updateMany(
-				{ _id: { $in: transformIds } },
-				{ $set: { _destroy: true } }
-			);
+			.updateMany({ _id: { $in: transformIds } }, { $set: { _destroy: true } });
+
 		return result;
 	} catch (error) {
 		throw new Error(error);

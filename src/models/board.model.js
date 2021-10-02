@@ -3,9 +3,10 @@ import { getDB } from '@/config/mongodb';
 import { ObjectId } from 'mongodb';
 import { ColumnModel } from './column.model';
 import { CardModel } from './card.model';
+import { cloneDeep } from 'lodash';
 
 // Define board collection
-const boardCollectionName = 'boards';
+const collectionName = 'boards';
 
 const boardCollectionSchema = Joi.object({
 	title: Joi.string().required().min(4).max(21).trim(),
@@ -24,12 +25,27 @@ const validateSchema = async data => {
 const createNew = async data => {
 	try {
 		const value = await validateSchema(data);
-		const result = await getDB()
-			.collection(boardCollectionName)
-			.insertOne(value);
-		return await getDB().collection(boardCollectionName).findOne({
+		const result = await getDB().collection(collectionName).insertOne(value);
+
+		return await getDB().collection(collectionName).findOne({
 			_id: result.insertedId
 		});
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+const update = async (id, data) => {
+	try {
+		const result = await getDB()
+			.collection(collectionName)
+			.findOneAndUpdate(
+				{ _id: ObjectId(id) },
+				{ $set: data },
+				{ returnDocument: 'after' }
+			);
+
+		return result.value;
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -42,7 +58,7 @@ const createNew = async data => {
 const pushColumnOrder = async (boardId, columnId) => {
 	try {
 		const result = await getDB()
-			.collection(boardCollectionName)
+			.collection(collectionName)
 			.findOneAndUpdate(
 				{ _id: ObjectId(boardId) },
 				{ $push: { columnOrder: columnId } },
@@ -50,6 +66,7 @@ const pushColumnOrder = async (boardId, columnId) => {
 					returnDocument: 'after'
 				}
 			);
+
 		return result.value;
 	} catch (error) {
 		throw new Error(error);
@@ -59,7 +76,7 @@ const pushColumnOrder = async (boardId, columnId) => {
 const getFullBoard = async id => {
 	try {
 		const result = await getDB()
-			.collection(boardCollectionName)
+			.collection(collectionName)
 			.aggregate([
 				{
 					$match: {
@@ -86,6 +103,7 @@ const getFullBoard = async id => {
 				}
 			])
 			.toArray();
+
 		return result[0] || {};
 	} catch (error) {
 		console.log(error);
@@ -94,17 +112,15 @@ const getFullBoard = async id => {
 
 const deleteItem = async data => {
 	try {
-		const result = await getDB()
-			.collection(boardCollectionName)
-			.deleteMany(data);
-		console.log(result);
+		const result = await getDB().collection(collectionName).deleteMany(data);
 	} catch (error) {
-		console.log(error);
+		throw new Error(error);
 	}
 };
 
 export const BoardModel = {
 	createNew,
+	update,
 	deleteItem,
 	getFullBoard,
 	pushColumnOrder
