@@ -44,5 +44,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "engines": {
+    "node": "14.17.0",
+    "npm": "7.x",
+    "yarn": "1.x"
+  }
 }
