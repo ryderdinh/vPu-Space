@@ -30,6 +30,7 @@ const createNew = async data => {
 		const result = await getDB()
 			.collection(collectionName)
 			.insertOne(insertValue);
+
 		return await getDB().collection(collectionName).findOne({
 			_id: result.insertedId
 		});
@@ -51,6 +52,7 @@ const pushCardOrder = async (columnId, cardId) => {
 				{ $push: { cardOrder: cardId } },
 				{ returnDocument: 'after' }
 			);
+
 		return result.value;
 	} catch (error) {
 		throw new Error(error);
@@ -58,14 +60,12 @@ const pushCardOrder = async (columnId, cardId) => {
 };
 
 const update = async (id, data) => {
-	console.log(data.boardId);
 	let resetData = data.boardId
 		? {
 				...data,
 				boardId: ObjectId(data.boardId)
 		  }
 		: { ...data };
-
 	try {
 		const result = await getDB()
 			.collection(collectionName)
@@ -74,6 +74,7 @@ const update = async (id, data) => {
 				{ $set: resetData },
 				{ returnDocument: 'after' }
 			);
+
 		return result.value;
 	} catch (error) {
 		throw new Error(error);

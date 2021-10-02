@@ -1,6 +1,15 @@
 import { CardModel } from '@/models/card.model';
 import { ColumnModel } from '../models/column.model';
 
+const keysCard = [
+	'boardId',
+	'columnId',
+	'title',
+	'cover',
+	'updatedAt',
+	'_destroy'
+];
+
 const createNew = async data => {
 	try {
 		//? Transaction mongodb
@@ -21,6 +30,13 @@ const createNew = async data => {
 const update = async (id, data) => {
 	try {
 		const updateData = { ...data, updatedAt: Date.now() };
+		let listKeyData = Object.keys(updateData);
+		// Remove unnecessary keys (Ex remove: _id)
+		for (const keyItem of listKeyData) {
+			if (!keysCard.includes(keyItem)) {
+				delete updateData[keyItem];
+			}
+		}
 		const result = await CardModel.update(id, updateData);
 
 		return result;
