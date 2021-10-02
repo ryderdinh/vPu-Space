@@ -31,7 +31,7 @@ const bootServer = () => {
 	app.use('/v1', apiV1);
 
 	//? CONNECT TO PORT
-	app.listen(port || process.env.PORT, () => {
+	app.listen(process.env.PORT || port, () => {
 		console.log('[🌀]  Server: @vpuspace');
 		console.log('    ◽' + host);
 		console.log('    ◽' + 'ctrl+click to open');
