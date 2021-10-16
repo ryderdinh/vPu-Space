@@ -12,7 +12,7 @@
     "build": "yarn clean && yarn build:babel",
     "prod": "yarn build && node ./build/src/server.js",
     "dev": "clear && nodemon --exec babel-node ./src/server.js",
-    "start": "yarn && yarn prod"
+    "start": "node ./build/src/server.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
